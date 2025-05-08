@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,9 @@ Route::get('/', function () {
 
 Route::get('/home', [HomeController::class, 'redirect']);
 Route::get('/', [HomeController::class, 'index']);
+
+Route::get('/add-doctor', [ AdminController::class, 'addDoctor'])->name('admin.add-doctor');
+Route::post('/store-doctor', [ AdminController::class, 'storeDoctor'])->name('admin.store-doctor');
 
 Route::middleware([
     'auth:sanctum',
