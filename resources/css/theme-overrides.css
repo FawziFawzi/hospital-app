@@ -1,0 +1,15 @@
+/* OneHealth Overrides */
+.onehealth-theme .jet-nav {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Corona Overrides */
+.corona-theme .jet-dropdown {
+    z-index: 9999 !important;
+}
+
+.corona-theme .nav-link {
+    color: #b1b1b5 !important;
+    padding: 0.5rem 1rem !important;
+}
