@@ -19,18 +19,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'redirect']);
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'redirect'])->middleware('auth:sanctum')->name('home');
+Route::get('/', [HomeController::class, 'index'])->middleware('guest');
 
-Route::get('/add-doctor', [ AdminController::class, 'addDoctor'])->name('admin.add-doctor');
-Route::post('/store-doctor', [ AdminController::class, 'storeDoctor'])->name('admin.store-doctor');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])
+    ->group(function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
     })->name('dashboard');
+        Route::get('/add-doctor', [ AdminController::class, 'addDoctor'])->name('admin.add-doctor');
+        Route::post('/store-doctor', [ AdminController::class, 'storeDoctor'])->name('admin.store-doctor');
 });
