@@ -130,6 +130,13 @@
 </header>
 
 <div class="page-hero bg-image overlay-dark" style="background-image: url(../assets/img/bg_image_1.jpg);">
+    @if(session('success'))
+
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <span class="ml-2"> {{session('success')}} </span>
+        </div>
+    @endif
     <div class="hero-section">
         <div class="container text-center wow zoomIn">
             <span class="subhead">Let's make your life happier</span>

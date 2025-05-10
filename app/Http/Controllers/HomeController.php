@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,12 +20,29 @@ class HomeController extends Controller
     {
             if (  Auth::user()->usertype == '0'  ){
                 $doctors = Doctor::all();
-
                 return view('user.home',['doctors' => $doctors]);
             }else{
                 return view('admin.home');
             }
+    }
 
+    public function appointment(Request $request)
+    {
+        $credentials = $request->validate([
+            'name' => 'required|string|max:50',
+            'doctor' => 'required|string|max:100',
+            'email' => 'required|email',
+            'phone' => 'required|string|max:11|regex:/(01)[0-9]{9}/',
+            'message' => 'required|string|max:400',
+            'date' => 'required|date',
+        ]);
+
+        if (Auth::user()) {
+            $credentials['user_id'] = Auth::id();
+        }
+        $credentials['status'] = 'In Progress';
+        Appointment::create($credentials);
+        return back()->with('success', 'Appointment Added Successfully');
 
     }
 }

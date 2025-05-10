@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get('/home', [HomeController::class, 'redirect'])->middleware('auth:sanctum')->name('home');
 Route::get('/', [HomeController::class, 'index'])->middleware('guest');
 
-
+Route::post('/appointment', [ HomeController::class, 'appointment'])->name('user.appointment');
 
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])
