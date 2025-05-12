@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -24,12 +22,6 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-
-
-
-
-
 
 </head>
 <body>
@@ -107,6 +99,10 @@
 {{--                    // TODO: Edit that form and use jetstream dashboard dropdown like the video in min 30--}}
                     @auth
                         <li class="nav-item">
+                            <a class="btn btn-primary ml-lg-3" href="{{ route('user.appointments') }}">My Appointments</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="btn btn-primary ml-lg-3" href="{{ route('dashboard') }}">{{ auth()->user()->name }}</a>
                         </li>
                         <li class="nav-item">
@@ -131,7 +127,6 @@
 
 <div class="page-hero bg-image overlay-dark" style="background-image: url(../assets/img/bg_image_1.jpg);">
     @if(session('success'))
-
         <div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">x</button>
             <span class="ml-2"> {{session('success')}} </span>

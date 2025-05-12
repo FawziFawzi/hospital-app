@@ -45,4 +45,18 @@ class HomeController extends Controller
         return back()->with('success', 'Appointment Added Successfully');
 
     }
+
+    public function appointments()
+    {
+        $appointments = Appointment::Where('user_id', Auth::id())->get();
+
+        return view('user.user_appointments', ['appointments' => $appointments]);
+    }
+
+    public function destroyAppointment(int $id)
+    {
+        Appointment::Destroy($id);
+
+        return back()->with('success', 'Appointment Deleted Successfully');
+    }
 }

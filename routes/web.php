@@ -23,6 +23,8 @@ Route::get('/home', [HomeController::class, 'redirect'])->middleware('auth:sanct
 Route::get('/', [HomeController::class, 'index'])->middleware('guest');
 
 Route::post('/appointment', [ HomeController::class, 'appointment'])->name('user.appointment');
+Route::get('/appointments', [ HomeController::class, 'appointments'])->middleware('auth')->name('user.appointments');
+Route::delete('/appointment/{id}', [ HomeController::class, 'destroyAppointment'])->middleware('auth')->name('user.cancelAppointment');
 
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])
