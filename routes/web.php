@@ -34,4 +34,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     })->name('dashboard');
         Route::get('/add-doctor', [ AdminController::class, 'addDoctor'])->name('admin.add-doctor');
         Route::post('/store-doctor', [ AdminController::class, 'storeDoctor'])->name('admin.store-doctor');
-});
+        Route::get('/showappointment', [ AdminController::class, 'showAppointment'])->name('admin.showAppointment');
+        Route::PATCH('/appointment/approve/{id}', [ AdminController::class, 'approveAppointment'])->middleware('auth')->name('admin.approveAppointment');
+        Route::PATCH('/appointment/cancel/{id}', [ AdminController::class, 'cancelAppointment'])->middleware('auth')->name('admin.cancelAppointment');
+
+    });
