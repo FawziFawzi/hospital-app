@@ -63,4 +63,50 @@ class AdminController extends Controller
         Appointment::find($id)->update(['status' => 'Cancelled']);
         return back()->with('success', 'Appointment Cancelled Successfully');
     }
+
+    public function showDoctors(Request $request)
+    {
+        $doctors = Doctor::all();
+
+        return view('admin.show_doctors',["doctors" => $doctors]);
+    }
+
+    public function deleteDoctors(int $id)
+    {
+        Doctor::destroy($id);
+        return back()->with('success', 'Doctor Deleted Successfully');
+
+    }
+
+    public function editDoctors(string $id)
+    {
+        $doctor = Doctor::findOrFail($id);
+        return view('admin.edit_doctor',["doctor" => $doctor]);
+
+    }
+
+    public function updateDoctors(Request $request, int $id)
+    {
+        $attributes = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:11|regex:/(01)[0-9]{9}/',
+            'room' => 'required|string|max:20',
+            'speciality' => 'required|string|max:20',
+        ]);
+
+        $doctor = Doctor::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time(). '.'. $image->getClientOriginalExtension();
+
+            $request->file('image')->move('doctor_image', $imageName);
+            $attributes['image'] = $imageName;
+        }else{
+            $attributes['image'] = $doctor->image;
+        }
+        $doctor->update($attributes);
+
+        return redirect()->back()->with('success', 'Doctor Updated Successfully');
+    }
 }

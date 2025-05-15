@@ -36,7 +36,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/add-doctor', [ AdminController::class, 'addDoctor'])->name('admin.add-doctor');
         Route::post('/store-doctor', [ AdminController::class, 'storeDoctor'])->name('admin.store-doctor');
         Route::get('/showappointment', [ AdminController::class, 'showAppointment'])->name('admin.showAppointment');
-        Route::PATCH('/appointment/approve/{id}', [ AdminController::class, 'approveAppointment'])->middleware('auth')->name('admin.approveAppointment');
-        Route::PATCH('/appointment/cancel/{id}', [ AdminController::class, 'cancelAppointment'])->middleware('auth')->name('admin.cancelAppointment');
+        Route::PATCH('/appointment/approve/{id}', [ AdminController::class, 'approveAppointment'])->name('admin.approveAppointment');
+        Route::PATCH('/appointment/cancel/{id}', [ AdminController::class, 'cancelAppointment'])->name('admin.cancelAppointment');
+
+        Route::get('/show-doctors', [ AdminController::class, 'showDoctors'])->name('admin.showDoctors');
+        Route::delete('/delete-doctors/{id}', [ AdminController::class, 'deleteDoctors'])->name('admin.deleteDoctors');
+
+        Route::get('/edit-doctors/{id}', [ AdminController::class, 'editDoctors'])->name('admin.editDoctors');
+        Route::put('/update-doctors/{id}', [ AdminController::class, 'updateDoctors'])->name('admin.updateDoctors');
 
     });
