@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function __construct(){
+        $this->middleware('can:is-admin');
+    }
+
     public function addDoctor()
     {
         return view('admin.add_doctor');

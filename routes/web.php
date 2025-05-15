@@ -31,7 +31,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     ->group(function () {
         Route::get('/dashboard', function () {
             return view('dashboard');
-    })->name('dashboard');
+        })->name('dashboard');
+
         Route::get('/add-doctor', [ AdminController::class, 'addDoctor'])->name('admin.add-doctor');
         Route::post('/store-doctor', [ AdminController::class, 'storeDoctor'])->name('admin.store-doctor');
         Route::get('/showappointment', [ AdminController::class, 'showAppointment'])->name('admin.showAppointment');
