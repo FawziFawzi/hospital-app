@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'redirect'])->middleware('auth:sanctum')->name('home');
+Route::get('/home', [HomeController::class, 'redirect'])->middleware(['auth:sanctum','verified']);
 Route::get('/', [HomeController::class, 'index'])->middleware('guest');
 
 Route::post('/appointment', [ HomeController::class, 'appointment'])->name('user.appointment');
@@ -27,7 +27,7 @@ Route::get('/appointments', [ HomeController::class, 'appointments'])->middlewar
 Route::delete('/appointment/{id}', [ HomeController::class, 'destroyAppointment'])->middleware('auth')->name('user.cancelAppointment');
 
 
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])
+Route::middleware(['auth:sanctum'])
     ->group(function () {
         Route::get('/dashboard', function () {
             return view('dashboard');
