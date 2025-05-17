@@ -45,4 +45,6 @@ Route::middleware(['auth:sanctum'])
         Route::get('/edit-doctors/{id}', [ AdminController::class, 'editDoctors'])->name('admin.editDoctors');
         Route::put('/update-doctors/{id}', [ AdminController::class, 'updateDoctors'])->name('admin.updateDoctors');
 
+        Route::get('/email/user/{id}', [ AdminController::class, 'emailUsers'])->name('admin.emailUsers');
+        Route::post('/email/user/{id}', [ AdminController::class, 'sendEmailUsers'])->name('admin.sendEmailUsers');
     });

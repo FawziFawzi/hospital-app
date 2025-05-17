@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Notifications\SendEmailNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class AdminController extends Controller
 {
@@ -108,5 +110,29 @@ class AdminController extends Controller
         $doctor->update($attributes);
 
         return redirect()->back()->with('success', 'Doctor Updated Successfully');
+    }
+
+    public function emailUsers(string $id)
+    {
+        $appointment = Appointment::find($id);
+        return view('admin.email_users',["appointment" => $appointment]);
+    }
+
+    public function sendEmailUsers(Request $request, string $id)
+    {
+        $appointment = Appointment::find($id);
+
+        $attributes = $request->validate([
+            'greeting' => 'required|string|max:255',
+            'body' => 'required|string|max:255',
+            'actiontext' => 'required|string|max:255',
+            'actionurl' => 'required|string|max:255',
+            'endpart' => 'required|string|max:255',
+
+        ]);
+
+        Notification::send($appointment, new SendEmailNotification($attributes));
+        return redirect()->back()->with('success', 'Email Sent Successfully');
+
     }
 }

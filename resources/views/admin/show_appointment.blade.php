@@ -24,65 +24,61 @@
     <!-- partial:partials/navbar.html -->
     @include('admin.navbar')
 
-    <div class="container-fluid page-body-wrapper">
-    <div class="container">
-
+    <div class="container mt-10 d-flex justify-content-start">
+        <div class="w-100 mt-70">
             @if(session('success'))
-                <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert">x</button>
-                    <span class="ml-2"> {{session('success')}} </span>
+                <div class="alert alert-success mt-7">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span class="ml-2">{{ session('success') }}</span>
                 </div>
             @endif
 
-
-        <table class="table table-sm  mt-5 text-white">
-            <thead>
-            <tr>
-                <th scope="col">Customer Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Doctor Name</th>
-                <th scope="col">Date</th>
-                <th scope="col">Message</th>
-                <th scope="col">Status</th>
-                <th scope="col">Approved</th>
-                <th scope="col">Canceled</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($appointments as $appointment)
+            <table class="table table-sm mt-5 text-white">
+                <thead>
                 <tr>
-                    <td>{{ $appointment->name }}</td>
-                    <td>{{ $appointment->email }}</td>
-                    <td>{{ $appointment->phone }}</td>
-                    <td>{{ $appointment->doctor }}</td>
-                    <td>{{ $appointment->date }}</td>
-                    <td>{{ $appointment->message }}</td>
-                    <td>{{ $appointment->status }}</td>
-                    <td>
-                        <form action="{{ route('admin.approveAppointment', $appointment->id) }}"
-                              method="POST">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit" class="btn btn-success"
-                            >Approve</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="{{ route('admin.cancelAppointment', $appointment->id) }}"
-                              method="POST">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit" class="btn btn-danger"
-                            >Cancel</button>
-                        </form>
-                    </td>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Doctor Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Approved</th>
+                    <th scope="col">Canceled</th>
+                    <th scope="col">Send Email</th>
                 </tr>
-            @endforeach
-
-            </tbody>
-        </table>
-    <!-- main-panel ends -->
+                </thead>
+                <tbody>
+                @foreach($appointments as $appointment)
+                    <tr>
+                        <td>{{ $appointment->name }}</td>
+                        <td>{{ $appointment->email }}</td>
+                        <td>{{ $appointment->phone }}</td>
+                        <td>{{ $appointment->doctor }}</td>
+                        <td>{{ $appointment->date }}</td>
+                        <td>{{ $appointment->message }}</td>
+                        <td>{{ $appointment->status }}</td>
+                        <td>
+                            <form action="{{ route('admin.approveAppointment', $appointment->id) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-success">Approve</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{{ route('admin.cancelAppointment', $appointment->id) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-danger">Cancel</button>
+                            </form>
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.emailUsers', $appointment->id) }}" class="btn btn-primary">Send Email</a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 <!-- page-body-wrapper ends -->
